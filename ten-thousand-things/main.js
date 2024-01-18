@@ -1,5 +1,5 @@
 import { Field } from "./Field.js";
-const canvasWidth = 1370, canvasHeight = 730;
+const canvasWidth = 1920, canvasHeight = 1080;
 
 let ctx;
 const fields = [
@@ -18,7 +18,7 @@ const main = s => {
         let canvas = s.createCanvas(win.w, win.h);
         canvas.parent(bg);
 
-        s.noiseSeed(seed);
+        s.noiseSeed(s.random() * 500);
         s.background("#329fad");
         s.stroke(0);
         console.log(s.noise(5, 5))
