@@ -1,11 +1,15 @@
+import { AnimatedField } from "./AnimatedField.js";
 import { Field } from "./Field.js";
-const canvasWidth = 1920, canvasHeight = 1080;
+// const canvasWidth = 1920, canvasHeight = 1080;
+const canvasWidth = 960, canvasHeight = 540;
 
 let ctx;
+// const fields = [
+//     new Field(canvasWidth + 100, canvasHeight + 100)
+// ];
 const fields = [
-    new Field(canvasWidth + 100, canvasHeight + 100)
+    new AnimatedField(canvasWidth + 100, canvasHeight + 100, 10)
 ];
-
 const main = s => {
     let bg;
     let win = {};
@@ -25,7 +29,7 @@ const main = s => {
     }
     s.draw = () => {
         fields.forEach(field => field.draw(s));
-        s.noLoop();
+        // s.noLoop();
     }
 }
 
