@@ -8,7 +8,7 @@ let ctx;
 //     new Field(canvasWidth + 100, canvasHeight + 100)
 // ];
 const fields = [
-    new AnimatedField(canvasWidth + 100, canvasHeight + 100, 10)
+    new Field(canvasWidth + 100, canvasHeight + 100, 10)
 ];
 const main = s => {
     let bg;

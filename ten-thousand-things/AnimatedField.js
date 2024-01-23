@@ -46,13 +46,14 @@ export class AnimatedField {
                 this.particles.push({ x: cx, y: cy, color });
             }
         }
+        this.noiseX = 0;
     }
 
     draw(s) {
         // return;
         for (let i = this.particles.length - 1; i >= 0; i--) {
             const p = this.particles[i];
-            let angle = s.noise(p.x / 500, p.y / 500) * Math.PI * 2;
+            let angle = s.noise(p.x / 500 + this.noiseX, p.y / 500 + this.noiseX) * Math.PI * 2;
             let nx = p.x + s.cos(angle) * 10;
             let ny = p.y + s.sin(angle) * 10;
             s.stroke(p.color ?? "white");
@@ -63,30 +64,27 @@ export class AnimatedField {
             if (p.x < 0 || p.x > this.width || p.y < 0 || p.y > this.width) {
                 this.particles.splice(i, 1);
 
-                continue
+                // continue
                 // create new particle on top of screen
 
-                if (Math.random() < 0.5) {
-                    let randomPosition = Math.random() * this.width;
-                    this.particles.push({ x: randomPosition, y: 0, color: this.getColor(randomPosition) });
-                }
-                // create new particle on right of screen
-                else {
-                    let randomPosition = Math.random() * this.height;
-                    this.particles.push({ x: this.width, y: randomPosition, color: this.getColor(randomPosition) });
-                }
+                let rx = Math.random() * this.width;
+                let ry = Math.random() * this.height;
+                this.particles.push({ x: rx, y: ry, color: this.getColor(ry) });
             }
         }
+        this.noiseX += 0.02;
     }
 
     getColor(y) {
         const w = y / this.height;
         const r = (Math.random() + w * 2) / 3;
+        let color = "white";
         this.colors.forEach((c, i) => {
             // debugger;
             if (r > i / this.colors.length && r < (i + 1) / this.colors.length) {
-                return c;
+                color = c;
             }
         });
+        return color;
     }
 }
