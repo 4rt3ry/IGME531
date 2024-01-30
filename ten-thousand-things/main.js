@@ -1,7 +1,7 @@
 import { AnimatedField } from "./AnimatedField.js";
 import { Field } from "./Field.js";
-// const canvasWidth = 1920, canvasHeight = 1080;
-const canvasWidth = 960, canvasHeight = 540;
+const canvasWidth = 1920, canvasHeight = 1080;
+// const canvasWidth = 960, canvasHeight = 540;
 
 let ctx;
 // const fields = [
@@ -29,7 +29,7 @@ const main = s => {
     }
     s.draw = () => {
         fields.forEach(field => field.draw(s));
-        // s.noLoop();
+        s.noLoop();
     }
 }
 

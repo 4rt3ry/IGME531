@@ -5,6 +5,7 @@ const main = () => {
     variation2("variation-2");
 }
 
+
 const DrawOriginal = (selector) => {
     const shapes = [
         rect(250, 60, 200, 200, -20, "#5e1626"),
