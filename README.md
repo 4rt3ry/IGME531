@@ -18,6 +18,9 @@ The 10,000 "Things" is actually 10,000 curves in a flow field. You can comment o
 ## How to Run
 1. Download the contents of [des-ordres/](https://github.com/4rt3ry/IGME531/tree/main/des-ordres)
 2. Using a tool such as VSCode Live Server, open `index.html`. Alternatively, double click `index.html` to open it in a browser.
+# About
+All SVG components are found at the bottom of the main.js file. To make the variations, I simply added parameters to `drawDesOrdres` which modify the SVG in various ways. 
+For consistent and scalable transformations, I decided to use a function factory to allow for easy chaining. i.e. `transform().translate(10, 5).pivot(50, 50).rotate(45)`.
 
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/61172baf-0f5d-4210-beb7-61a6073f84e6)
 
