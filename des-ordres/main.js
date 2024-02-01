@@ -85,14 +85,6 @@ const drawDesOrdres = (
 ///////////////////////////////////////////   SVG STUFF /////////////////////////////////////////
 //
 
-class Transform {
-    constructor() {
-
-    }
-
-
-}
-
 const transform = (currentTransform = "", pivot = [0, 0]) => {
     const data = {
         transform: `transform="${currentTransform}"`,
