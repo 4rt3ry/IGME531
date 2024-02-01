@@ -132,12 +132,12 @@ const circle = (x, y, r = 10, attr = "") => {
 
 const ellipse = (x, y, w, h, attr = "") => {
     if (!attr) attr = `style="fill:black;stroke:none"`;
-    return `<ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h}" style="fill:${color};stroke:none"></ellipse>`;
+    return `<ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h}" ${attr}></ellipse>`;
 }
 
 const rect = (x, y, w, h, attr = "") => {
     if (!attr) attr = `style="fill:black;stroke:none"`;
-    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${color};stroke:none"></rect>`;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" ${attr}></rect>`;
 }
 
 const poly = (points, color = "white") =>
