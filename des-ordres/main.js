@@ -1,37 +1,84 @@
 
+// potentially make a palette
+const color = "#423a22";
+
+
 const main = () => {
-    // DrawOriginal("original");
+    drawDesOrdres("original");
+    drawDesOrdres("variation-1", 1, 0);
+    drawDesOrdres("variation-2", 0.5, 3, 3, 0, 50, "random");
 }
 
-const DrawOriginal = (id) => {
-    const width = 600;
-    const height = 600;
-    const boxSize = 50;
-    const gap = 0;
-    const randomness = 5;
-
+const drawDesOrdres = (
+    id,
+    density = 0.2,
+    randomness = 5,
+    depth = 10,
+    gap = -2,
+    boxSize = 51.99,
+    shape = "default",
+    width = 1000,
+    height = 1000
+) => {
     const elements = [];
 
 
     for (let x = 0; x < width; x += boxSize + gap) {
         for (let y = 0; y < height; y += boxSize + gap) {
-            const depth = Math.floor(Math.random() * 20) + 10;
+            // how many lines do we want
+            const d = Math.floor(Math.random() * depth) + Math.max(Math.min(5, depth), 1);
             let currentSize = boxSize;
-            for (let i = 0; i < depth; i++) {
-                // decrease size each iteration
+
+            let currentShape;
+            for (let i = 0; i < d; i++) {
+                // create 4 points of a "square" with some randomness
                 let p1 = [Math.random() * randomness, Math.random() * randomness];
                 let p2 = [currentSize - Math.random() * randomness, Math.random() * randomness];
                 let p3 = [currentSize - Math.random() * randomness, currentSize - Math.random() * randomness];
                 let p4 = [Math.random() * randomness, currentSize - Math.random() * randomness];
 
-                elements.push(group(transform().translate(x, y).transform, polyLine("", [p1, p2, p3, p4])))
+                // center of "square" for transformations
+                const offset = (boxSize - currentSize) / 2;
+                let transformation = transform();
 
-                currentSize -= Math.max(Math.random * currentSize, randomness);
+                if (shape == "random") {
+                    let rotation = Math.floor(Math.random() * 4) * 90;
+                    transformation = transformation.pivot(-offset, -offset).rotate(rotation);
+
+                    // randomize curvature
+                    const commands = "LSSST";
+                    let currentPath = `M ${p1[0]} ${p1[1]} `;
+                    let points = [p2, p3, p4, p1];
+                    for (let j = 0; j < points.length; j++) {
+                        // random command
+                        const c = commands.split("")[Math.floor(Math.random() * commands.length)];
+                        if (c == "S") {
+                            const prev = j > 0 ? points[j - 1] : p1;
+                        currentPath += `S ${prev[0]} ${prev[1]}, ${points[j][0]} ${points[j][1]} `
+                        }
+                        else
+                        currentPath += `${c} ${points[j][0]} ${points[j][1]}`;
+                    }
+
+
+                    // const c = "LT".split("")[Math.floor(Math.random() * 2)];
+                    // const points = `M ${p1[0]} ${p1[1]} ` + [p2, p3, p4, p1].map(p => `${c} ${p[0]} ${p[1]}`).join(" ");
+                    currentShape = path(currentPath, `style="fill:none;stroke:${color}"`);
+                }
+                else {
+                    currentShape = polyLine([p1, p2, p3, p4, p1], `style="fill:none;stroke:${color}"`);
+                }
+                transformation = transformation.translate(x + offset, y + offset);
+                elements.push(group(currentShape, transformation.transform));
+
+                // decrease size each iteration
+                currentSize -= Math.random() * currentSize * density;
             }
         }
     }
-
-    document.querySelector(`#${id}`).innerHTML = createSVG(elements, 600, 600, 0, 0, 1000, 1000);
+    const docElm = document.querySelector(`#${id}`);
+    if (docElm)
+        docElm.innerHTML = svgWrapper(elements.join(""), 600, 600, 0, 0, 1000, 1000);
 }
 
 //
@@ -46,100 +93,30 @@ class Transform {
 
 }
 
-// const transform = (theTransform, pivot) => {
-//     const data = {
-//         transform: theTransform, pivot, 
-//         translate: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             // data.__transform += `transform(${x} ${y}) `
-//             // debugger
-//             // return data.__transform;
-//             return transform(theTransform + `transform(${x} ${y}) `, pivot);
-//         },
-//         setPivot: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             data.__pivot[0] = x;
-//             data.__pivot[1] = y;
-//             return data;
-
-//             return transform(theTransform, [x, y])
-//         },
-//         rotate: (r) => {
-//             // if (isNaN(r)) return data;
-//             data.__transform += `rotate(${r} ${__pivot[0]} ${__pivot[0]}) `
-//             return data;
-//         },
-//         scale: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             data.__transform += `scale(${x} ${y}) `
-//             return data;
-//         },
-//     }
-//     return data;
-// }
-
-// const transform = () => {
-//     const data = {
-//         __transform: "",
-//         __pivot: [0, 0],
-//         translate: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             data.__transform += `transform(${x} ${y}) `
-//             debugger
-//             return data.__transform;
-//         },
-//         setPivot: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             data.__pivot[0] = x;
-//             data.__pivot[1] = y;
-//             return data;
-//         },
-//         rotate: (r) => {
-//             // if (isNaN(r)) return data;
-//             data.__transform += `rotate(${r} ${__pivot[0]} ${__pivot[0]}) `
-//             return data;
-//         },
-//         scale: (x, y) => {
-//             // if (isNaN(x) || isNaN(y)) return data;
-//             data.__transform += `scale(${x} ${y}) `
-//             return data;
-//         },
-//     }
-//     return data;
-
-//     // return {
-//     //     __pivot: [0, 0],
-//     //     translate: (x, y) => {
-//     //         // if (isNaN(x) || isNaN(y)) return this;
-//     //         this.__transform += `transform(${x} ${y}) `
-//     //         debugger
-//     //         return this.__transform;
-//     //     },
-//     //     setPivot: (x, y) => {
-//     //         // if (isNaN(x) || isNaN(y)) return this;
-//     //         this.__pivot[0] = x;
-//     //         this.__pivot[1] = y;
-//     //         return this;
-//     //     },
-//     //     rotate: (r) => {
-//     //         // if (isNaN(r)) return this;
-//     //         this.__transform += `rotate(${r} ${__pivot[0]} ${__pivot[0]}) `
-//     //         return this;
-//     //     },
-//     //     scale: (x, y) => {
-//     //         // if (isNaN(x) || isNaN(y)) return this;
-//     //         this.__transform += `scale(${x} ${y}) `
-//     //         return this;
-//     //     },
-//     // }
-// }
-
-const group = (attr = "", body = "") => {
-    return `<g ${attr}>${body}</g>`;
-}
-
-const polyLine = (attr = "", points = []) => {
-    return `<polyline ${attr} points="${points.map(p => `${p[0]},${p[1]}`).join(" ")}" />`;
+const transform = (currentTransform = "", pivot = [0, 0]) => {
+    const data = {
+        transform: `transform="${currentTransform}"`,
+        __pivot: pivot,
+        translate: (x, y) => {
+            if (isNaN(x) || isNaN(y)) return data;
+            return transform(`translate(${x} ${y}) ${currentTransform}`, pivot);
+        },
+        pivot: (x, y) => {
+            if (isNaN(x) || isNaN(y)) return data;
+            data.__pivot[0] = x;
+            data.__pivot[1] = y;
+            return data;
+        },
+        rotate: (r) => {
+            if (isNaN(r)) return data;
+            return transform(`rotate(${r} ${pivot[0]} ${pivot[1]}) ${currentTransform}`, pivot)
+        },
+        scale: (x, y) => {
+            if (isNaN(x) || isNaN(y)) return data;
+            return transform(`scale(${x} ${y}) ${currentTransform}`, pivot)
+        },
+    }
+    return data;
 }
 
 /**
@@ -154,10 +131,49 @@ const getColor = () => {
         Math.floor(Math.random() * 30 + 225).toString(16).padStart(2, "0")].join("")
 };
 
+// SVG Stuff
+
+const circle = (x, y, r = 10, attr = "") => {
+    if (!attr) attr = `style="fill:black;stroke:none"`;
+    return `<circle cx="${x}" cy="${y}" r="${r}" ${attr} ></circle>`;
+}
+
+const ellipse = (x, y, w, h, attr = "") => {
+    if (!attr) attr = `style="fill:black;stroke:none"`;
+    return `<ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h}" style="fill:${color};stroke:none"
+    transform="rotate(${r},${x},${y})"></ellipse>`;
+}
+
+const rect = (x, y, w, h, attr = "") => {
+    if (!attr) attr = `style="fill:black;stroke:none"`;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${color};stroke:none"
+    transform="rotate(${r},${x + w / 2},${y + h / 2})"></rect>`;
+}
+
+const poly = (points, color = "white") =>
+    `<polygon points="${points.map(p => `${p[0]},${p[1]}`).join(" ")}" 
+    style="fill:${color};stroke:none"></polygon>`;
+
+const line = (x1, y1, x2, y2, stroke = "black", strokeWeight = 1) =>
+    `<line x1=${x1} y1=${y1} x2=${x2} y2=${y2} style="stroke:${stroke};stroke-width:${strokeWeight}"></line>`;
+
+const group = ( body = "", attr = "") => {
+    return `<g ${attr}>${body}</g>`;
+}
+
+const polyLine = (points = [], attr = "") => {
+    if (!attr) attr = `style="fill:none;stroke:black"`;
+    return `<polyline ${attr} points="${points.map(p => `${p[0]},${p[1]}`).join(" ")}"></polyline>`;
+}
+
+const path = (data = "", attr = "") => {
+    if (!attr) attr = `style="fill:none;stroke:black"`;
+    return `<path ${attr} d="${data}"></path>`;
+}
 
 /**
  * Convert an array of shapes into an SVG
- * @param {string} shapes string array of shapes - example: [circle, rect, rect, rect]
+ * @param {string} content string array of shapes - example: [circle, rect, rect, rect]
  * @param {*} width 
  * @param {*} height 
  * @param {*} x 
@@ -166,9 +182,9 @@ const getColor = () => {
  * @param {*} vHeight 
  * @returns 
  */
-const createSVG = (shapes, width, height, x, y, vWidth, vHeight) =>
-    `<svg width="${width}" height="${height}" viewBox="${x} ${y} ${vWidth} ${vHeight}">
-    ${shapes.join("")}
+const svgWrapper = (content, width = 100, height = 100, x = 0, y = 0, vWidth = 100, vHeight = 100) =>
+    `<svg width="${width}" height="${height}" viewBox="${x} ${y} ${vWidth} ${vHeight}" xmlns="X">
+    ${content}
     </svg>`;
 
 main();
