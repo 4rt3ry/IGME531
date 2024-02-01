@@ -1,3 +1,12 @@
+# Ten Thousand Things
+## How to Run
+1. Download the contents of [ten-thousand-things/](https://github.com/4rt3ry/IGME531/tree/main/ten-thousand-things)
+2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
+## About
+The 10,000 "Things" is actually 10,000 curves in a flow field. You can comment out some lines of code (namely `s.noLoop()`) and change `Field` to `AnimatedField` to get a nice animated flow field.
+
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/1d1fb948-686e-40bb-b91f-62bf4df9c358)
+
 # Saint Victoire En Rouge Variations
 ## How to Run
 1. Download the contents of [sainte-victoire-en-rouge/](https://github.com/4rt3ry/IGME531/tree/main/saint-victoire-en-rouge)
