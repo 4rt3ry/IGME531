@@ -28,3 +28,9 @@ For consistent and scalable transformations, I decided to use a function factory
 ## How to Run
 1. Download the contents of [schotter/](https://github.com/4rt3ry/IGME531/tree/main/schotter)
 2. Using a tool such as VSCode Live Server, open `index.html`. Alternatively, double click `index.html` to open it in a browser.
+## About
+Color is somewhat arbitrarily chosen, but can be thought of as a representation of the amount of "chaos" in each image. I admit it's not the most visually pleasing, 
+but it is more interesting than a plain black drawing.
+
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/f1a4e8d6-071b-4fac-af4f-b141078a47ea)
+
