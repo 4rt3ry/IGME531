@@ -7,6 +7,7 @@ const main = () => {
     drawSchotter("original");
     drawSchotter("variation-1", "radial", 600, 600);
     drawSchotter("variation-2", "radial-inverse", 600, 600, 23);
+    drawSchotter("variation-3", "horizontal", 600, 400, 25);
 }
 
 const drawSchotter = (id, chaosDirection = "vertical", width = 400, height = 600, boxSize = 25, gap = 0) => {
@@ -14,7 +15,7 @@ const drawSchotter = (id, chaosDirection = "vertical", width = 400, height = 600
 
     const shapes = [];
     let color = "black";
-    for (let y = 0; y < height - boxSize; y += boxSize + gap) {
+    for (let y = boxSize; y < height - boxSize; y += boxSize + gap) {
         for (let x = boxSize; x < width - boxSize; x += boxSize + gap) {
 
             // strength determines the amount of "chaos"

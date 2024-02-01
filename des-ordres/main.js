@@ -4,7 +4,7 @@ const color = "#423a22";
 
 
 const main = () => {
-    drawDesOrdres("original");
+    drawDesOrdres("original", 0.4);
     drawDesOrdres("variation-1", 1, 0);
     drawDesOrdres("variation-2", 0.5, 3, 3, 0, 50, "random");
 }
@@ -63,7 +63,7 @@ const drawDesOrdres = (
 
                     // const c = "LT".split("")[Math.floor(Math.random() * 2)];
                     // const points = `M ${p1[0]} ${p1[1]} ` + [p2, p3, p4, p1].map(p => `${c} ${p[0]} ${p[1]}`).join(" ");
-                    currentShape = path(currentPath, `style="fill:none;stroke:${color}"`);
+                    currentShape = path(currentPath, `style="fill:#32a85250;stroke:${color}"`);
                 }
                 else {
                     currentShape = polyLine([p1, p2, p3, p4, p1], `style="fill:none;stroke:${color}"`);
@@ -88,16 +88,13 @@ const drawDesOrdres = (
 const transform = (currentTransform = "", pivot = [0, 0]) => {
     const data = {
         transform: `transform="${currentTransform}"`,
-        __pivot: pivot,
         translate: (x, y) => {
             if (isNaN(x) || isNaN(y)) return data;
             return transform(`translate(${x} ${y}) ${currentTransform}`, pivot);
         },
         pivot: (x, y) => {
             if (isNaN(x) || isNaN(y)) return data;
-            data.__pivot[0] = x;
-            data.__pivot[1] = y;
-            return data;
+            return transform(currentTransform, [x, y]);
         },
         rotate: (r) => {
             if (isNaN(r)) return data;
