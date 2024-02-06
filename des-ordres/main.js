@@ -170,7 +170,7 @@ const path = (data = "", attr = "") => {
  * @returns 
  */
 const svgWrapper = (content, width = 100, height = 100, x = 0, y = 0, vWidth = 100, vHeight = 100) =>
-    `<svg width="${width}" height="${height}" viewBox="${x} ${y} ${vWidth} ${vHeight}" xmlns="X">
+    `<svg width="${width}" height="${height}" viewBox="${x} ${y} ${vWidth} ${vHeight}" xmlns="http://www.w3.org/2000/svg">
     ${content}
     </svg>`;
 
