@@ -1,0 +1,28 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.fontFamily": "Fira Code, Consolas",
+    "editor.fontLigatures": true,
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.colorCustomizations": {
+        "[Solarized Dark]": {
+            "editor.background": "#00252e",
+            "sideBar.background": "#081121"
+        }
+    },
+    "editor.tokenColorCustomizations": {
+        "[Solarized Dark]": {
+            "variables": "#84df9b",
+            "functions": "#d6bf58",
+            "textMateRules": [
+                {
+                    "scope": "keyword.control",
+                    "settings": {
+                        "foreground": "#84df9b"
+                    }
+                }
+            ],
+            // ""
+            // "keywords": "#FF0000"
+        }
+    }
+}
