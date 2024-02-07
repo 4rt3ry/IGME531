@@ -12,17 +12,22 @@
     "editor.tokenColorCustomizations": {
         "[Solarized Dark]": {
             "variables": "#84df9b",
-            "functions": "#d6bf58",
+            "functions": "#f3b14e",
+            // "functions": "#d6bf58",
             "textMateRules": [
                 {
                     "scope": "keyword.control",
                     "settings": {
                         "foreground": "#84df9b"
                     }
+                },
+                {
+                    "scope": ["variable.name", "variable.language", "variable.other"],
+                    "settings": {
+                        "foreground": "#328bff"
+                    }
                 }
-            ],
-            // ""
-            // "keywords": "#FF0000"
+            ]
         }
     }
 }
