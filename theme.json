@@ -3,33 +3,47 @@
     "editor.fontFamily": "Fira Code, Consolas",
     "editor.fontLigatures": true,
     "workbench.colorTheme": "Solarized Dark",
-    "workbench.colorCustomizations": {
-        "[Solarized Dark]": {
-            "editor.background": "#00252e",
-            "sideBar.background": "#081121"
-        }
-    },
-    "editor.tokenColorCustomizations": {
-        "[Solarized Dark]": {
-            "variables": "#328bff",
-            "functions": "#f3b14e",
-            // "functions": "#d6bf58",
-            "textMateRules": [
-                {
-                    "scope": "keyword.control",
-                    "settings": {
-                        "foreground": "#84df9b"
-                    }
-                },
-                {
-                    "scope": ["variable.name", "variable.language", "variable.other"],
-                    "settings": {
-                        "foreground": "#84df9b",
-                    }
-                }
-            ]
-        }
-    },
+	"workbench.colorCustomizations": {
+		"[Solarized Dark]": {
+		  "editor.background": "#00252e",
+		  "sideBar.background": "#081121",
+		  "editorBracketHighlight.foreground1": "#8cc9c0",
+		  "editorBracketHighlight.foreground3": "#994956"
+		}
+	  },
+	  "editor.tokenColorCustomizations": {
+		"[Solarized Dark]": {
+		  "variables": "#84df9b",
+		  "functions": "#d6bf58",
+		  "textMateRules": [
+			{
+			  "scope": "keyword.control",
+			  "settings": {
+				"foreground": "#62ff89"
+			  }
+			},
+			{
+			  "scope": "variable.other",
+			  "settings": {
+				"foreground": "#91baba"
+			  }
+			},
+			{
+			  "scope": ["variable", "variable.parameter", "variable.language"],
+			  "settings": {
+				"foreground": "#268BD2"
+			  }
+			},
+			{
+			  "scope": "storage.type",
+			  "settings": {
+				"foreground": "#268BD2",
+				"fontStyle": ""
+			  }
+			}
+		  ]
+		}
+	  },
     "colors": {
 		"activityBar.background": "#003847",
 		"badge.background": "#047aa6",
