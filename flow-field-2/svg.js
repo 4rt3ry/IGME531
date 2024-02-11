@@ -54,8 +54,13 @@ const poly = (points, color = "white") =>
     `<polygon points="${points.map(p => `${p[0]},${p[1]}`).join(" ")}" 
     style="fill:${color};stroke:none"></polygon>`;
 
-const line = (x1, y1, x2, y2, stroke = "black", strokeWeight = 1) =>
-    `<line x1=${x1} y1=${y1} x2=${x2} y2=${y2} style="stroke:${stroke};stroke-width:${strokeWeight}"></line>`;
+const line = (x1, y1, x2, y2, stroke = "black", strokeWeight = 1) => {
+    x1 = Math.floor(x1 * 100) / 100;
+    y1 = Math.floor(y1 * 100) / 100;
+    x2 = Math.floor(x2 * 100) / 100;
+    y2 = Math.floor(y2 * 100) / 100;
+    return `<line x1=${x1} y1=${y1} x2=${x2} y2=${y2} style="stroke:${stroke};stroke-width:${strokeWeight}"></line>`;
+}
 
 const group = (body = "", attr = "") => {
     return `<g ${attr}>${body}</g>`;
@@ -66,6 +71,13 @@ const polyLine = (points = [], attr = "") => {
     return `<polyline ${attr} points="${points.map(p => `${p[0]},${p[1]}`).join(" ")}"></polyline>`;
 }
 
+/**
+ * Create an SVG path. Must start with "M" command. Lower case commands are relative.
+ * @param {string} data path data. | M x y | L x y | H x | V y | C x1 y1, x2 y2, x y | S x2 y2, x y | 
+ * Q x1 y1, x, y | T x y | A rx ry angle large-arc-flag sweep-flag x y |
+ * @param {string} attr 
+ * @returns 
+ */
 const path = (data = "", attr = "") => {
     if (!attr) attr = `style="fill:none;stroke:black"`;
     return `<path ${attr} d="${data}"></path>`;

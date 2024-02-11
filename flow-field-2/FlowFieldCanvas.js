@@ -3,7 +3,7 @@ import * as perlin from "https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.
 
 const noise = new SimplexNoise();
 
-class FlowField {
+export class FlowFieldCanvas {
     /**
  * Create a new Phylotaxis flower
  * @param {Number} width Width
@@ -47,7 +47,15 @@ class FlowField {
             })
     }
 
-    draw(elmId) {
+    draw(elmId, bgColor = "white") {
+        const canvas = document.querySelector(`#${elmId}`);
+        canvas.width = this.width;
+        canvas.height = this.height;
+        const ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, this.width, this.height);
+
         const shapes = [];
         this.points.forEach(p => {
             let x = p[0];
@@ -63,19 +71,22 @@ class FlowField {
             });
 
             // let path = `M ${x} ${y} `;
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.moveTo(x, y);
             for (let i = 0; i < this.length; i++) {
                 let angle = noise.noise2D(x * 0.002, y * 0.002) * 3.14;
                 let cx = x + Math.cos(angle) * this.precision;
                 let cy = y + Math.sin(angle) * this.precision;
-                shapes.push(svg.line(x, y, cx, cy, color));
+                ctx.lineTo(cx, cy);
                 // path += `T ${cx} ${cy} `
                 x = cx; y = cy;
             }
+            ctx.stroke();
+            ctx.closePath();
             // shapes.push(svg.path(path, `stroke="${color}" fill="transparent"`));
         });
-
-        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
     }
 }
 
-export { FlowField }
+// export { FlowFieldCanvas }
