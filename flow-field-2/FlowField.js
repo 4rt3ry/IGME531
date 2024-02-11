@@ -1,8 +1,6 @@
 import * as svg from "./svg.js"
 import * as perlin from "https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.0.0/simplex-noise.js"
 
-const noise = new SimplexNoise();
-
 class FlowField {
     /**
  * Create a new Phylotaxis flower
@@ -48,6 +46,7 @@ class FlowField {
     }
 
     draw(elmId) {
+        const noise = new SimplexNoise();
         const shapes = [];
         this.points.forEach(p => {
             let x = p[0];

@@ -1,7 +1,6 @@
 import * as svg from "./svg.js"
 import * as perlin from "https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.0.0/simplex-noise.js"
 
-const noise = new SimplexNoise();
 
 export class FlowFieldCanvas {
     /**
@@ -13,7 +12,7 @@ export class FlowFieldCanvas {
  * @param {Number} c Closeness
  * @param {*} color either CSS color string or a callback (n, angle, radius)
  */
-    constructor(width, height, c = 5, precision = 10, length = 10, randomness = 5) {
+    constructor(width, height, c = 5, precision = 10, length = 10, randomness = 5, noiseStep = 0.002) {
         Object.assign(this, { width, height, c, precision, length, randomness });
 
         this.textures = [
@@ -47,7 +46,9 @@ export class FlowFieldCanvas {
             })
     }
 
-    draw(elmId, bgColor = "white") {
+    draw(elmId, bgColor = "transparent") {
+        const noise = new SimplexNoise();
+
         const canvas = document.querySelector(`#${elmId}`);
         canvas.width = this.width;
         canvas.height = this.height;
@@ -75,7 +76,7 @@ export class FlowFieldCanvas {
             ctx.strokeStyle = color;
             ctx.moveTo(x, y);
             for (let i = 0; i < this.length; i++) {
-                let angle = noise.noise2D(x * 0.002, y * 0.002) * 3.14;
+                let angle = noise.noise2D(x * this.noiseStep, y * this.noiseStep) * 3.14;
                 let cx = x + Math.cos(angle) * this.precision;
                 let cy = y + Math.sin(angle) * this.precision;
                 ctx.lineTo(cx, cy);
