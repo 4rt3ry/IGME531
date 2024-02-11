@@ -34,3 +34,10 @@ but it is more interesting than a plain black drawing.
 
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/f1a4e8d6-071b-4fac-af4f-b141078a47ea)
 
+# Schotter
+## How to Run
+1. Download the contents of [interruptions/](https://github.com/4rt3ry/IGME531/tree/main/interruptions)
+2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/1060e8c2-fb15-4d9e-b1b2-b64238b4929b)
+
+
