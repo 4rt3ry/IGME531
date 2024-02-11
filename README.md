@@ -40,4 +40,13 @@ but it is more interesting than a plain black drawing.
 2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/1060e8c2-fb15-4d9e-b1b2-b64238b4929b)
 
+# Flow Field
+## How to Run
+1. Download the contents of [flow-field-2/](https://github.com/4rt3ry/IGME531/tree/main/flow-field-2)
+2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
+## About
+It is 1:00am and I haven't slept much recently, so I'm too tired to come up with a description or to write how I got here. To me, this flow field looks like veins.
+
+<img src="https://github.com/4rt3ry/IGME531/assets/89705128/12ee7263-0e4c-455f-ac57-6f4ece18bcb7" width=48%>
+<img src="https://github.com/4rt3ry/IGME531/assets/89705128/26bad2e5-3c42-4f42-97e7-a01524151029" width=48%>
 
