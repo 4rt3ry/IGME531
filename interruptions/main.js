@@ -1,21 +1,49 @@
 
-import * as perlin from "https://cdn.jsdelivr.net/npm/perlin-noise@0.0.1/index.min.js"
+import * as perlin from "https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.0.0/simplex-noise.js"
 
 // potentially make a palette
 const color = "#423a22";
-
+let noiseX = 0, noiseY = 0;
 
 const main = () => {
-    drawInterruptions("original", 0.4);
+    drawInterruptions("original");
+    drawInterruptions("variation-1", "sure why not", 0.1, 12, 20);
+    drawInterruptions("variation-2", "NO (but actually yes >.< uwu)", 0.1, 1, 20);
+    // drawInterruptions("variation-2");
 }
 
-const drawInterruptions = () => {
-    const width = 1000; const height = 1000;
-    for (let x = 0; x < width; x++) {
-        for(let y = 0; y < height; y++) {
-
+const drawInterruptions = (elmId, useNoise = undefined, noiseStep = 0.1, gridSize = 12, lineLength = 20, width = 600, height = 600) => {
+    const noise = new SimplexNoise();
+    const shapes = [];
+    const padding = 40;
+    gridSize = Math.max(gridSize, 5);
+    for (let x = padding; x < width - padding; x += gridSize) {
+        noiseX += noiseStep;
+        for (let y = padding; y < height - padding; y += gridSize) {
+            noiseY += noiseStep;
+            let angle;
+            // const angle = noise.noise2D(noiseX, noiseY) * 3.14;
+            // const angle = noise.noise2D(x * 0.01, y * 0.01);
+            // const dx = Math.cos(angle) * lineLength;
+            // const dy = Math.sin(angle) * lineLength;
+            let dx;
+            let dy;
+            if (useNoise) {
+                angle = noise.noise2D(noiseX, noiseY) * 3.14;
+                dx = noise.noise2D(noiseX, noiseY) * lineLength;
+                dy = lineLength;
+            }
+            else {
+                angle = Math.random() * 3.1415;
+                dx = Math.cos(angle) * lineLength;
+                dy = Math.sin(angle) * lineLength;
+            }
+            if (noise.noise2D(x * 0.008, y * 0.008) < 0.65)
+                shapes.push(group(line(0, 0, dx, dy), transform().rotate(angle).translate(x, y).transform));
         }
+
     }
+    document.querySelector(`#${elmId}`).innerHTML = svgWrapper(shapes, width, height, 0, 0, width, height);
 }
 
 //
@@ -81,7 +109,7 @@ const poly = (points, color = "white") =>
 const line = (x1, y1, x2, y2, stroke = "black", strokeWeight = 1) =>
     `<line x1=${x1} y1=${y1} x2=${x2} y2=${y2} style="stroke:${stroke};stroke-width:${strokeWeight}"></line>`;
 
-const group = ( body = "", attr = "") => {
+const group = (body = "", attr = "") => {
     return `<g ${attr}>${body}</g>`;
 }
 
