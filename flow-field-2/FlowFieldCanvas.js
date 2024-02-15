@@ -13,7 +13,7 @@ export class FlowFieldCanvas {
  * @param {*} color either CSS color string or a callback (n, angle, radius)
  */
     constructor(width, height, c = 5, precision = 10, length = 10, randomness = 5, noiseStep = 0.002) {
-        Object.assign(this, { width, height, c, precision, length, randomness });
+        Object.assign(this, { width, height, c, precision, length, randomness, noiseStep });
 
         this.textures = [
             {
@@ -70,6 +70,8 @@ export class FlowFieldCanvas {
                     color = c;
                 }
             });
+            // debugger
+
 
             // let path = `M ${x} ${y} `;
             ctx.beginPath();
