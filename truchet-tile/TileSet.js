@@ -11,12 +11,12 @@ export class TileSet {
             for (let y = 0; y < this.height; y += this.tileSize) {
                 let t = svg.transform().translate(x, y);
                 if (Math.random() > 0.5)
-                    t = t.pivot(x, y).rotate(90);
+                    t = t.pivot(x +25, y + 25).rotate(90);
                 shapes.push(svg.group(this.tile(0, x, y), t.transform));
 
             }
         }
-
+        // shapes.push(svg.group(this.tile(0), svg.transform().pivot(25, 25).rotate(90).transform));
         document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
     }
     tile() {
