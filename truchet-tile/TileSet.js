@@ -11,7 +11,7 @@ export class TileSet {
             for (let y = 0; y < this.height; y += this.tileSize) {
                 let t = svg.transform().translate(x, y);
                 if (Math.random() > 0.5)
-                    t = t.pivot(x +25, y + 25).rotate(90);
+                    t = t.pivot(x + 25, y + 25).rotate(90);
                 shapes.push(svg.group(this.tile(0, x, y), t.transform));
 
             }
