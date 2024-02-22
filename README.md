@@ -50,3 +50,11 @@ It is 1:00am and I haven't slept much recently, so I'm too tired to come up with
 <img src="https://github.com/4rt3ry/IGME531/assets/89705128/12ee7263-0e4c-455f-ac57-6f4ece18bcb7" width=48%>
 <img src="https://github.com/4rt3ry/IGME531/assets/89705128/26bad2e5-3c42-4f42-97e7-a01524151029" width=48%>
 
+# Pen Plotter
+## How to Run
+1. Download the contents of [project-1/](https://github.com/4rt3ry/IGME531/tree/main/project-1)
+2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
+## About
+This project contains a class for creating a radial hexagonal grid of 5 possible tiles. Parameters include canvas width/height, hexagonal grid radius, hexagon size (relative to apothem), padding between tiles, and 2 callback functions to define which tiles are layed out where. Currently, the only way to obtain a copy of the generated svg file is to copy the contents using "inspect element" into a text file, renaming it with a .svg extension.
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/42f3472d-d116-4b93-86ca-5789f580925f)
+
