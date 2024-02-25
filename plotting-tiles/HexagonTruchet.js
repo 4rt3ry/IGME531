@@ -4,29 +4,31 @@ const sq3 = Math.sqrt(3)
 
 export class HexagonTruchet {
     constructor(width = 1000, height = 1000, apothem = 50, spacing = 1) {
-        Object.assign(this, { width, height, apothem, side: apothem / sq3 * 2 * spacing, spacing });
-
+        Object.assign(this, { width, height, apothem, side: apothem / sq3 * 2 * spacing, spacing});
+        this.shapes = [];
     }
-    tileDemo(elmId) {
-        const shapes = [];
+    draw(elmId) {
+        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(this.shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
+        this.shapes = [];
+    }
+    tileDemo(xOffset = 0, yOffset = 0) {
         const mx = this.width / 2;
         const my = this.height / 2;
         const ox = -100;
         for (let i = 0; i < 5; i++) {
-            shapes.push(svg.group(this.tile(i, 0), svg.transform().translate(mx + i * 50 + ox, my).transform));
+            this.shapes.push(svg.group(this.tile(i, 0), svg.transform().translate(mx + i * 50 + ox, my).translate(xOffset, yOffset).transform));
         }
-        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
+        // document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(this.shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
     }
-    radialGrid(elmId, radius = 3, tileSelectionCallback, tileModeCallback, radialScaling = false) {
+    radialGrid(radius = 3, xOffset = 0, yOffset = 0, tileSelectionCallback = undefined, tileModeCallback = undefined, radialScaling = false) {
         radius = Math.min(Math.max(radius, 1), 16);
-        const shapes = [];
         const mx = this.width / 2; // middle x, middle y
         const my = this.height / 2;
         const rIncrement = this.apothem * 2; // radial increment distance
         const ao = Math.PI / 6; // angle offset
         const ha = Math.PI / 3; // hexagon angle
         const hoa = Math.PI * 2 / 3; // hexagon offset angle, used for drawing hexagons semi-perpendicular to radius
-        shapes.push(svg.group(this.tile(0, 0), svg.transform().translate(mx, my).transform));
+        this.shapes.push(svg.group(this.tile(0, 0), svg.transform().translate(mx, my).translate(xOffset, yOffset).transform));
         for (let i = 0; i < radius; i++) {
             const ii = i + 1;
             for (let j = 0; j < 6 * i; j++) {
@@ -37,18 +39,17 @@ export class HexagonTruchet {
                 if (radialScaling)
                 this.spacing = 2 - Math.sqrt(Math.pow(x - mx, 2) + Math.pow(y - my, 2)) / rIncrement / radius;
 
-                // shapes.push(svg.group(this.tile(Math.random() * 8, j), svg.transform().translate(x, y).transform));
+                // this.shapes.push(svg.group(this.tile(Math.random() * 8, j), svg.transform().translate(x, y).transform));
                 let tileType = i * 0.74;
                 if (tileSelectionCallback) tileType = tileSelectionCallback(i, j);
                 let tileMode = j;
                 if (tileModeCallback) tileMode = tileModeCallback(i, j);
 
-                shapes.push(svg.group(this.tile(tileType, tileMode), svg.transform().translate(x, y).transform));
-                // shapes.push(svg.group(this.tile(0, i), svg.transform().translate(x, y).transform));
+                this.shapes.push(svg.group(this.tile(tileType, tileMode), svg.transform().translate(x, y).translate(xOffset, yOffset).transform));
+                // this.shapes.push(svg.group(this.tile(0, i), svg.transform().translate(x, y).transform));
             }
         }
-        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
-
+        // document.querySelector(`#${elmId}`).innerHTML += svg.svgWrapper(this.shapes.join(""), this.width, this.height, x, y, this.width, this.height);
     }
     hexTile = () => {
         let shape = "";
@@ -67,6 +68,7 @@ export class HexagonTruchet {
         let shape = "";
         r = Math.floor(r) % 2;
         n = Math.floor(n) % 5;
+        const color = "#000000"
 
         if (n === 0) {
             // shape += this.hexTile();
@@ -86,7 +88,7 @@ export class HexagonTruchet {
                 // const ny1 = Math.sin(na) * this.apothem * this.spacing + Math.sin(na - Math.PI / 2) * 2;
 
                 // shape += svg.path(`M ${sx} ${sy} L ${nx} ${ny}`);
-                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx} ${ny}`)
+                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx} ${ny}`, `style="stroke:${color};fill:none"`)
                 // shape += svg.path(`M ${sx1} ${sy1} A ${this.side / 2 * 0.8} ${this.side / 2 * 0.8} 0 0 0 ${nx1} ${ny1}`)
             }
         }
@@ -108,7 +110,7 @@ export class HexagonTruchet {
                 // const ny1 = Math.sin(na) * this.apothem * this.spacing + Math.sin(na - Math.PI / 2) * 2;
 
                 // shape += svg.path(`M ${sx} ${sy} L ${nx} ${ny}`);
-                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx} ${ny}`)
+                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx} ${ny}`, `style="stroke:${color};fill:none"`)
                 // shape += svg.path(`M ${sx1} ${sy1} A ${this.side / 2 * 0.8} ${this.side / 2 * 0.8} 0 0 0 ${nx1} ${ny1}`)
             }
         }
@@ -133,9 +135,9 @@ export class HexagonTruchet {
                 const ly3 = Math.sin(sa + a) * this.apothem * this.spacing * 0.2;
 
                 // shape += svg.path(`M ${sx} ${sy} L ${nx} ${ny}`);
-                shape += svg.path(`M ${sx} ${sy} A ${this.side * 2} ${this.side * 2} 0 0 0 ${nx} ${ny}`);
-                shape += svg.line(lx1, ly1, lx2, ly2);
-                shape += svg.line(lx3, ly3, 0, 0);
+                shape += svg.path(`M ${sx} ${sy} A ${this.side * 2} ${this.side * 2} 0 0 0 ${nx} ${ny}`, `style="stroke:${color};fill:none"`);
+                shape += svg.line(lx1, ly1, lx2, ly2, color);
+                shape += svg.line(lx3, ly3, 0, 0, color);
 
                 // shape += svg.path(`M ${sx1} ${sy1} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx1} ${ny1}`)
             }
@@ -164,8 +166,8 @@ export class HexagonTruchet {
 
                 // shape += svg.path(`M ${sx} ${sy} L ${nx} ${ny}`);
                 // shape += svg.path(`M ${sx} ${sy} A ${this.side * 2} ${this.side * 2} 0 0 0 ${nx} ${ny}`);
-                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${sx1} ${sy1}`);
-                shape += svg.line(0, 0, sx, sy);
+                shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${sx1} ${sy1}`, `style="stroke:${color};fill:none"`);
+                shape += svg.line(0, 0, sx, sy, color);
                 // shape += svg.line(lx3, ly3, 0, 0);
 
                 // shape += svg.path(`M ${sx1} ${sy1} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx1} ${ny1}`)
@@ -196,8 +198,8 @@ export class HexagonTruchet {
                 // shape += svg.path(`M ${sx} ${sy} L ${nx} ${ny}`);
                 // shape += svg.path(`M ${sx} ${sy} A ${this.side * 2} ${this.side * 2} 0 0 0 ${nx} ${ny}`);
                 // shape += svg.path(`M ${sx} ${sy} A ${this.side / 2} ${this.side / 2} 0 0 0 ${sx1} ${sy1}`);
-                shape += svg.line(0, 0, sx, sy);
-                shape += svg.line(lx2, ly2, lx3, ly3);
+                shape += svg.line(0, 0, sx, sy, color);
+                shape += svg.line(lx2, ly2, lx3, ly3, color);
 
                 // shape += svg.path(`M ${sx1} ${sy1} A ${this.side / 2} ${this.side / 2} 0 0 0 ${nx1} ${ny1}`)
             }
