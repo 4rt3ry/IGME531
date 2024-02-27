@@ -15,7 +15,7 @@ export class HexagonTruchet {
         for (let i = 0; i < 5; i++) {
             shapes.push(svg.group(this.tile(i, 0), svg.transform().translate(mx + i * 50 + ox, my).transform));
         }
-        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
+        document.querySelector(`${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
     }
     radialGrid(elmId, radius = 3, tileSelectionCallback, tileModeCallback, radialScaling = false) {
         radius = Math.min(Math.max(radius, 1), 16);
@@ -47,7 +47,7 @@ export class HexagonTruchet {
                 // shapes.push(svg.group(this.tile(0, i), svg.transform().translate(x, y).transform));
             }
         }
-        document.querySelector(`#${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
+        document.querySelector(`${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
 
     }
     hexTile = () => {
