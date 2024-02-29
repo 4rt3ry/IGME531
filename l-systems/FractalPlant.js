@@ -9,7 +9,7 @@ class FractalPlant {
             'F': 'FF'
         }
         this.angle = 25 * Math.PI / 180;
-        this.data = 'XF'
+        this.data = 'X'
     }
     draw(selector) {
         const length = 5;
@@ -21,11 +21,11 @@ class FractalPlant {
             switch (i) {
                 case '+': angle += this.angle; break;
                 case '-': angle -= this.angle; break;
-                case '[': stack.push({ p, angle }); break;
+                case '[': stack.push({ point: [p[0], p[1]], angle }); break;
                 case ']':
                     let d = stack.pop();
                     angle = d.angle;
-                    p = d.p;
+                    p = d.point;
                     break;
                 case 'F':
                     let x = p[0];

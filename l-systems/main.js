@@ -1,5 +1,5 @@
 import { FractalPlant } from './FractalPlant.js'
 
-const plant = new FractalPlant(500, 500);
-plant.compile(5);
+const plant = new FractalPlant(800, 800);
+plant.compile(6);
 plant.draw("#original");
