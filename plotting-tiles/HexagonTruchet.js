@@ -18,7 +18,7 @@ export class HexagonTruchet {
         for (let i = 0; i < 5; i++) {
             this.shapes.push(svg.group(this.tile(i, 0), svg.transform().translate(mx + i * 50 + ox, my).translate(xOffset, yOffset).transform));
         }
-        document.querySelector(`${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
+        // document.querySelector(`${elmId}`).innerHTML = svg.svgWrapper(shapes.join(""), this.width, this.height, 0, 0, this.width, this.height);
     }
     radialGrid(radius = 3, xOffset = 0, yOffset = 0, tileSelectionCallback = undefined, tileModeCallback = undefined, radialScaling = false) {
         radius = Math.min(Math.max(radius, 1), 16);
