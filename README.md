@@ -58,3 +58,8 @@ It is 1:00am and I haven't slept much recently, so I'm too tired to come up with
 This project contains a class for creating a radial hexagonal grid of 5 possible tiles. Parameters include canvas width/height, hexagonal grid radius, hexagon size (relative to apothem), padding between tiles, and 2 callback functions to define which tiles are layed out where. Currently, the only way to obtain a copy of the generated svg file is to copy the contents using "inspect element" into a text file, renaming it with a .svg extension.
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/42f3472d-d116-4b93-86ca-5789f580925f)
 
+# Fractal Plant
+1. Download the contents of [l-systems/](https://github.com/4rt3ry/IGME531/tree/main/l-systems)
+2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/b4fc2602-f722-457c-aa75-23008a0f658b)
+
