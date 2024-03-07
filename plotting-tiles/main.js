@@ -15,3 +15,7 @@ tileset2.draw("#variation-2");
 // tileset2.radialGrid("variation-2", 8, 0, 0, (i, j) => i *0.8, undefined);
 tileDemo.tileDemo();
 tileDemo.draw("#tile-demo");
+
+
+tileset2.radialGrid(16, 0, 0);
+tileset2.draw("#variation-3");
