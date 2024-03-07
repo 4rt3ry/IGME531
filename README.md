@@ -62,4 +62,6 @@ This project contains a class for creating a radial hexagonal grid of 5 possible
 1. Download the contents of [l-systems/](https://github.com/4rt3ry/IGME531/tree/main/l-systems)
 2. Using a tool such as VSCode Live Server, open `index.html`. This MUST be opened using some sort of live server and will not run locally.
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/b4fc2602-f722-457c-aa75-23008a0f658b)
+![image](https://github.com/4rt3ry/IGME531/assets/89705128/4cf68f18-44aa-4563-a17b-2f216665ab24)
+
 
