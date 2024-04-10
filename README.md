@@ -65,3 +65,9 @@ This project contains a class for creating a radial hexagonal grid of 5 possible
 ![image](https://github.com/4rt3ry/IGME531/assets/89705128/4cf68f18-44aa-4563-a17b-2f216665ab24)
 
 
+# Ico Fractal
+
+1. Download the contents of [jscad/](https://github.com/4rt3ry/IGME531/tree/main/jscad)
+2. Using a tool such as VSCode Live Server, open `project-2.html`. This MUST be opened using some sort of live server and will not run locally.
+<img src="https://github.com/4rt3ry/IGME531/assets/89705128/b5a8caf0-debc-4255-8fb4-dcca5b3f819e" width=48%>
+<img src="https://github.com/4rt3ry/IGME531/assets/89705128/d79f57ac-47bc-4616-b2af-1f0fe1fdfbda" width=48%>
