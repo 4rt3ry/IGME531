@@ -22,7 +22,7 @@ const fractal = (params, iterations) => {
         const mag = Math.sqrt(point[0] * point[0] + point[1] * point[1] + point[2] * point[2]);
         const p = point.map(i => i * 0.5);
         // debugger
-        return union(translate([p[0], p[1], p[2]], fractal({ size: params.size / 2 }, iterations - 1)));
+        return translate([p[0], p[1], p[2]], fractal({ size: params.size / 2 }, iterations - 1));
     });
     return next;
 }
@@ -40,4 +40,5 @@ function uniq(a) {
     });
 }
 
-render(document.getElementById("render"), rotate([Math.acos(-Math.sqrt(5)/3) / 2, 0, 0], fractal({ size: 100 }, 3)));
+const theFractal = union(rotate([Math.acos(-Math.sqrt(5) / 3) / 2, 0, 0], fractal({ size: 100 }, 3)));
+render(document.getElementById("render"), theFractal);
